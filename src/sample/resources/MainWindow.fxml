@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="1317.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+  <tabs>
+    <Tab text="Magazyn">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="1152.0">
+               <children>
+                  <AnchorPane prefHeight="453.0" prefWidth="1012.0">
+                     <children>
+                        <TableView layoutX="358.0" layoutY="31.0" prefHeight="505.0" prefWidth="926.0">
+                           <columns>
+                              <TableColumn prefWidth="63.0" text="ID " />
+                              <TableColumn prefWidth="190.0" text="Typ" />
+                              <TableColumn prefWidth="65.0" text="Stan" />
+                              <TableColumn prefWidth="123.0" text="Wyporzyczenie" />
+                           </columns>
+                        </TableView>
+                        <VBox layoutX="14.0" layoutY="31.0" prefHeight="213.0" prefWidth="75.0" spacing="20.0">
+                           <children>
+                              <Label text="ID" />
+                              <Label text="Rodzaj" />
+                              <Label text="Typ" />
+                              <Label text="Amortyzacja" />
+                              <Label text="Stan" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="89.0" layoutY="31.0" prefHeight="200.0" prefWidth="247.0" spacing="11.0">
+                           <children>
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                           </children>
+                        </VBox>
+                        <Button layoutX="86.0" layoutY="232.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Insert" />
+                        <Button layoutX="166.0" layoutY="232.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Update" />
+                        <Button layoutX="245.0" layoutY="232.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Delete" />
+                        <Button layoutX="86.0" layoutY="266.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="239.0" text="Refresh" />
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Pracownicy">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane layoutX="17.0" layoutY="25.0" prefHeight="453.0" prefWidth="1012.0">
+                     <children>
+                        <TableView layoutX="358.0" layoutY="28.0" prefHeight="505.0" prefWidth="926.0">
+                           <columns>
+                              <TableColumn prefWidth="63.0" text="ID " />
+                              <TableColumn prefWidth="119.0" text="Imię" />
+                              <TableColumn prefWidth="136.0" text="Nazwisko" />
+                              <TableColumn prefWidth="123.0" text="PESEL" />
+                              <TableColumn prefWidth="107.0" text="Stanowisko" />
+                              <TableColumn prefWidth="92.0" text="Zarobki" />
+                              <TableColumn prefWidth="74.0" text="Kierownik" />
+                              <TableColumn prefWidth="211.0" text="Adres" />
+                           </columns>
+                        </TableView>
+                        <VBox layoutX="14.0" layoutY="31.0" prefHeight="405.0" prefWidth="75.0" spacing="20.0">
+                           <children>
+                              <Label text="ID" />
+                              <Label text="Imie" />
+                              <Label text="Nazwisko" />
+                              <Label text="PESEL" />
+                              <Label text="Stanowisko" />
+                              <Label text="Zarobki" />
+                              <Label text="Kierownik" />
+                              <Label text="Miasto" />
+                              <Label text="Ulica" />
+                              <Label text="nr domu" />
+                              <Label text="Nr mieszkania" />
+                              <Label text="Kod pocztowy" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="89.0" layoutY="31.0" prefHeight="412.0" prefWidth="247.0" spacing="11.0">
+                           <children>
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                           </children>
+                        </VBox>
+                        <Button layoutX="95.0" layoutY="471.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Insert" />
+                        <Button layoutX="168.0" layoutY="471.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Update" />
+                        <Button layoutX="248.0" layoutY="471.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Delete" />
+                        <Button layoutX="93.0" layoutY="496.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="239.0" text="Refresh" />
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab text="Zlecenia">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane prefHeight="453.0" prefWidth="1012.0">
+                     <children>
+                        <VBox layoutX="14.0" layoutY="31.0" prefHeight="418.0" prefWidth="75.0" spacing="20.0">
+                           <children>
+                              <Label text="ID" />
+                              <Label text="Nazwa zleceniodawcy" />
+                              <Label text="telefon zleceniodawcy" />
+                              <Label text="Data rozpoczęcia" />
+                              <Label text="ID kierownika" />
+                              <Label text="Miasto" />
+                              <Label text="Ulica" />
+                              <Label text="Nr domu" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="89.0" layoutY="31.0" prefHeight="300.0" prefWidth="247.0" spacing="11.0">
+                           <children>
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField />
+                              <TextField prefHeight="23.0" prefWidth="247.0" />
+                              <TextField />
+                           </children>
+                        </VBox>
+                        <Button layoutX="87.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Insert" />
+                        <Button layoutX="167.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Update" />
+                        <Button layoutX="246.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Delete" />
+                        <Button layoutX="87.0" layoutY="486.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="239.0" text="Refresh" />
+                        <TableView layoutX="346.0" layoutY="29.0" prefHeight="505.0" prefWidth="926.0">
+                           <columns>
+                              <TableColumn prefWidth="63.0" text="ID " />
+                              <TableColumn prefWidth="113.0" text="Nazwa Zlec." />
+                              <TableColumn prefWidth="142.0" text="Tel. Zlec." />
+                              <TableColumn prefWidth="114.0" text="Data rozpoczęcia" />
+                              <TableColumn prefWidth="124.0" text="Data zakonczenia" />
+                              <TableColumn prefWidth="98.0" text="ID kierownika" />
+                              <TableColumn prefWidth="297.0" text="Adres" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>
