@@ -10,20 +10,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="1317.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
-  <tabs>
-    <Tab text="Magazyn">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="1317.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.MainWindowController">
+   <tabs>
+    <Tab fx:id="magazynTab" text="Magazyn">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="480.0" prefWidth="1152.0">
                <children>
-                  <AnchorPane prefHeight="453.0" prefWidth="1012.0">
+                  <AnchorPane layoutX="7.0" prefHeight="453.0" prefWidth="1012.0">
                      <children>
-                        <TableView layoutX="358.0" layoutY="31.0" prefHeight="505.0" prefWidth="926.0">
+                        <TableView fx:id="TabelaNarzedzia" layoutX="355.0" layoutY="31.0" onMouseClicked="#handleMouseActionN" prefHeight="532.0" prefWidth="948.0">
                            <columns>
-                              <TableColumn prefWidth="63.0" text="ID " />
-                              <TableColumn prefWidth="190.0" text="Typ" />
-                              <TableColumn prefWidth="65.0" text="Stan" />
-                              <TableColumn prefWidth="123.0" text="Wyporzyczenie" />
+                              <TableColumn fx:id="IDNarzedzieColumn" prefWidth="63.0" text="ID " />
+                              <TableColumn fx:id="TypNarzedzieColumn" prefWidth="190.0" text="Typ" />
+                              <TableColumn fx:id="RodzajNarzezdiaColumn" prefWidth="75.0" text="Rodzaj" />
+                              <TableColumn fx:id="StanNarzedzieColumn" prefWidth="65.0" text="Stan" />
+                              <TableColumn fx:id="WyporzyczenieNarzedzieColumn" prefWidth="123.0" text="Wyporzyczenie" />
+                              <TableColumn fx:id="AmortyzacjaNarzedzieColumn" prefWidth="75.0" text="Amortyzacja" />
                            </columns>
                         </TableView>
                         <VBox layoutX="14.0" layoutY="31.0" prefHeight="213.0" prefWidth="75.0" spacing="20.0">
@@ -37,29 +39,29 @@
                         </VBox>
                         <VBox layoutX="89.0" layoutY="31.0" prefHeight="200.0" prefWidth="247.0" spacing="11.0">
                            <children>
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
+                              <TextField fx:id="txtIDNarzedzia" />
+                              <TextField fx:id="txtRodzajNarzedzia" />
+                              <TextField fx:id="txtTypNarzedzia" />
+                              <TextField fx:id="txtAmortyzacjaNarzedzia" />
+                              <TextField fx:id="txtStanNarzedzia" />
                            </children>
                         </VBox>
-                        <Button layoutX="86.0" layoutY="232.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Insert" />
-                        <Button layoutX="166.0" layoutY="232.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Update" />
-                        <Button layoutX="245.0" layoutY="232.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Delete" />
-                        <Button layoutX="86.0" layoutY="266.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="239.0" text="Refresh" />
+                        <Button fx:id="insertNArzedzieButton" layoutX="89.0" layoutY="232.0" mnemonicParsing="false" onAction="#insertNarzedzie" prefHeight="25.0" prefWidth="82.0" text="Insert" />
+                        <Button fx:id="updateNarzedzieButton" layoutX="171.0" layoutY="232.0" mnemonicParsing="false" onAction="#updateNarzedzie" prefHeight="25.0" prefWidth="83.0" text="Update" />
+                        <Button fx:id="deleteNarzedzieButton" layoutX="254.0" layoutY="232.0" mnemonicParsing="false" onAction="#deleteNarzedzie" prefHeight="25.0" prefWidth="82.0" text="Delete" />
+                        <Button fx:id="refreshNarzedzieButton" layoutX="89.0" layoutY="269.0" mnemonicParsing="false" onAction="#refreshNarzedzie" prefHeight="25.0" prefWidth="247.0" text="Refresh" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Pracownicy">
+    <Tab fx:id="PracownicyTab" text="Pracownicy">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <AnchorPane layoutX="17.0" layoutY="25.0" prefHeight="453.0" prefWidth="1012.0">
+                  <AnchorPane layoutY="9.0" prefHeight="549.0" prefWidth="1302.0">
                      <children>
-                        <TableView layoutX="358.0" layoutY="28.0" prefHeight="505.0" prefWidth="926.0">
+                        <TableView layoutX="358.0" layoutY="28.0" prefHeight="532.0" prefWidth="945.0">
                            <columns>
                               <TableColumn prefWidth="63.0" text="ID " />
                               <TableColumn prefWidth="119.0" text="Imię" />
@@ -87,38 +89,38 @@
                               <Label text="Kod pocztowy" />
                            </children>
                         </VBox>
-                        <VBox layoutX="89.0" layoutY="31.0" prefHeight="412.0" prefWidth="247.0" spacing="11.0">
+                        <VBox layoutX="96.0" layoutY="28.0" prefHeight="429.0" prefWidth="240.0" spacing="12.0">
                            <children>
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
+                              <TextField fx:id="txtIDPracownik" />
+                              <TextField fx:id="txtImiePracownik" />
+                              <TextField fx:id="txtNazwiskoPracownik" />
+                              <TextField fx:id="txtPESELPracownik" />
+                              <TextField fx:id="txtStanowiskoPracownik" />
+                              <TextField fx:id="txtZarobkiPracownik" />
+                              <TextField fx:id="txtKierownikPracownika" />
+                              <TextField fx:id="txtMiastoPracownik" />
+                              <TextField fx:id="txtUlicaPracownik" />
+                              <TextField fx:id="txtNrDomPracownik" />
+                              <TextField fx:id="txtNrMieszkaniaPracownik" />
+                              <TextField fx:id="txtKodPocztowyPracownik" />
                            </children>
                         </VBox>
-                        <Button layoutX="95.0" layoutY="471.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Insert" />
-                        <Button layoutX="168.0" layoutY="471.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Update" />
-                        <Button layoutX="248.0" layoutY="471.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" text="Delete" />
-                        <Button layoutX="93.0" layoutY="496.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="239.0" text="Refresh" />
+                        <Button fx:id="insertPracownikButton" layoutX="86.0" layoutY="484.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Insert" />
+                        <Button fx:id="updatePracownikButton" layoutX="168.0" layoutY="484.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Update" />
+                        <Button fx:id="deletetPracownikButton" layoutX="251.0" layoutY="484.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Delete" />
+                        <Button fx:id="refreshPracownikButton" layoutX="86.0" layoutY="515.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="247.0" text="Refresh" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab text="Zlecenia">
+      <Tab fx:id="ZleceniaTab" text="Zlecenia">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <AnchorPane prefHeight="453.0" prefWidth="1012.0">
                      <children>
-                        <VBox layoutX="14.0" layoutY="31.0" prefHeight="418.0" prefWidth="75.0" spacing="20.0">
+                        <VBox layoutX="14.0" layoutY="31.0" prefHeight="418.0" prefWidth="126.0" spacing="20.0">
                            <children>
                               <Label text="ID" />
                               <Label text="Nazwa zleceniodawcy" />
@@ -130,23 +132,23 @@
                               <Label text="Nr domu" />
                            </children>
                         </VBox>
-                        <VBox layoutX="89.0" layoutY="31.0" prefHeight="300.0" prefWidth="247.0" spacing="11.0">
+                        <VBox layoutX="137.0" layoutY="31.0" prefHeight="300.0" prefWidth="199.0" spacing="11.0">
                            <children>
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField />
-                              <TextField prefHeight="23.0" prefWidth="247.0" />
-                              <TextField />
+                              <TextField fx:id="txtIDZlecenia" />
+                              <TextField fx:id="txtNazwaZlecenia" />
+                              <TextField fx:id="txtTelZlecenia" />
+                              <TextField fx:id="txtIDataRozplecenia" />
+                              <TextField fx:id="txtIDKierownikaZlecenia" prefHeight="25.0" prefWidth="188.0" />
+                              <TextField fx:id="txtMiastoZlecenia" />
+                              <TextField fx:id="txtUlicaZlecenia" prefHeight="23.0" prefWidth="247.0" />
+                              <TextField fx:id="txtNrDomZlecenia" />
                            </children>
                         </VBox>
-                        <Button layoutX="87.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Insert" />
-                        <Button layoutX="167.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Update" />
-                        <Button layoutX="246.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Delete" />
-                        <Button layoutX="87.0" layoutY="486.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="239.0" text="Refresh" />
-                        <TableView layoutX="346.0" layoutY="29.0" prefHeight="505.0" prefWidth="926.0">
+                        <Button fx:id="insertZlecenieButton" layoutX="87.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Insert" />
+                        <Button fx:id="updateZlecenieButton" layoutX="167.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Update" />
+                        <Button fx:id="deleteZlecenieButton" layoutX="246.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Delete" />
+                        <Button fx:id="refreshZlecenieButton" layoutX="85.0" layoutY="486.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="247.0" text="Refresh" />
+                        <TableView layoutX="346.0" layoutY="29.0" prefHeight="532.0" prefWidth="945.0">
                            <columns>
                               <TableColumn prefWidth="63.0" text="ID " />
                               <TableColumn prefWidth="113.0" text="Nazwa Zlec." />
