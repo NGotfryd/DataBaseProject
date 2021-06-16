@@ -4,12 +4,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import sample.Entity.Narzedzie;
+import sample.Entity.Pracownik;
 import sample.Entity.Wypozyczenie;
+import sample.Entity.Zlecenie;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.Date;
@@ -66,49 +74,49 @@ public class MainWindowController implements Initializable {
     private Button deleteNarzedzieButton;
 
     @FXML
-    private Button refreshNarzedzieButton;
+    private Button wypozyczNarzedzieButton;
 
     @FXML
     private Tab PracownicyTab;
 
     @FXML
-    private TableView<?> tabelaPracownik;
+    private TableView<Pracownik> tabelaPracownik;
 
     @FXML
-    private TableColumn<?, ?> idPracownikCol;
+    private TableColumn<Pracownik, Integer> idPracownikCol;
 
     @FXML
-    private TableColumn<?, ?> imiePracownikCol;
+    private TableColumn<Pracownik, String> imiePracownikCol;
 
     @FXML
-    private TableColumn<?, ?> nazwiskoPracowikCol;
+    private TableColumn<Pracownik, String> nazwiskoPracowikCol;
 
     @FXML
-    private TableColumn<?, ?> PESELPracownikCol;
+    private TableColumn<Pracownik, String> PESELPracownikCol;
 
     @FXML
-    private TableColumn<?, ?> stanowiskoPracownikCol;
+    private TableColumn<Pracownik, String> stanowiskoPracownikCol;
 
     @FXML
-    private TableColumn<?, ?> zarobkiPracownikCol;
+    private TableColumn<Pracownik, Integer> zarobkiPracownikCol;
 
     @FXML
-    private TableColumn<?, ?> kierownikPracownikCol;
+    private TableColumn<Pracownik, Integer> kierownikPracownikCol;
 
     @FXML
-    private TableColumn<?, ?> miastoPracownikCol;
+    private TableColumn<Pracownik, String> miastoPracownikCol;
 
     @FXML
-    private TableColumn<?, ?> UlicaPracownikCol;
+    private TableColumn<Pracownik, String> UlicaPracownikCol;
 
     @FXML
-    private TableColumn<?, ?> domPracownikCol;
+    private TableColumn<Pracownik, Integer> domPracownikCol;
 
     @FXML
-    private TableColumn<?, ?> mieszkaniePracownikCol;
+    private TableColumn<Pracownik, Integer> mieszkaniePracownikCol;
 
     @FXML
-    private TableColumn<?, ?> kodpocztowyPracownikCol;
+    private TableColumn<Pracownik, String> kodpocztowyPracownikCol;
 
     @FXML
     private TextField txtIDPracownik;
@@ -195,7 +203,38 @@ public class MainWindowController implements Initializable {
     private Button deleteZlecenieButton;
 
     @FXML
-    private Button refreshZlecenieButton;
+    private TableView<Zlecenie> tablelaZlecen;
+
+    @FXML
+    private TableColumn<Zlecenie, Integer> idZleceniaCol;
+
+    @FXML
+    private TableColumn<Zlecenie, String> nazwaZleceniaCol;
+
+    @FXML
+    private TableColumn<Zlecenie, String> telZlecenieCol;
+
+    @FXML
+    private TableColumn<Zlecenie, Date> rozpoczecieZleceniaCol;
+
+    @FXML
+    private TableColumn<Zlecenie, Date> zakonczenieZleceniaCol;
+
+    @FXML
+    private TableColumn<Zlecenie, Integer> kierownikZleceniaCol;
+
+    @FXML
+    private TableColumn<Zlecenie, String> miastoZleceniaCol;
+
+    @FXML
+    private TableColumn<Zlecenie, String> ulicaZeceniaCol;
+
+    @FXML
+    private TableColumn<Zlecenie, Integer> domZleceniaCol;
+
+    @FXML
+    private TableColumn<Zlecenie, String> kodpocztowyZleceniaCol;
+
 
 
     public Connection getConnection() throws SQLException
@@ -216,6 +255,8 @@ public class MainWindowController implements Initializable {
     {
         try {
             showNarzedzie();
+            showPracownik();
+            showZlecenie();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -323,7 +364,165 @@ public class MainWindowController implements Initializable {
      *                              */
 
 
+    public ObservableList<Pracownik> getPracownikList() throws SQLException {
+
+        ObservableList<Pracownik> Pracowniklist = FXCollections.observableArrayList();
+        Connection conn = getConnection();
+        String query = "SELECT `pi`.`id`, `pi`.`imie`, `pi`.`nazwisko`, `pi`.`pesel`, `s`.`nazwa`, `pi`.`zarobki`, `p`.`kierownik`, `a`.`miasto`, `a`.`ulica`, `a`.`nr_domu`, `a`.`nr_mieszkania`, `a`.`kod_pocztowy`\n" +
+                "    FROM(((( `pracownikinfo` pi \n" +
+                "\tJOIN `pracownik` p ON `pi`.`id` = `p`.`id`) \n" +
+                "\tJOIN `stanowisko` s ON `s`.`id` = `p`.`stanowisko`)\n" +
+                "    JOIN `kierownik` k ON  `k`.id = `p`.`stanowisko`)\n" +
+                "    JOIN `adres` a ON `a`.`id` = `pi`.`adres`);";
+        Statement st;
+        ResultSet rs;
+
+        try{
+            st = conn.createStatement();
+            rs =st.executeQuery(query);
+            Pracownik pracownik;
+
+            while(rs.next())
+            {
+                pracownik = new Pracownik(rs.getInt("id"), rs.getString("imie"), rs.getString("nazwisko"), rs.getString("PESEL"), rs.getString("nazwa"),
+                        rs.getInt("zarobki"), rs.getInt("kierownik"), rs.getString("miasto"), rs.getString("ulica"), rs.getInt("nr_domu"),
+                         rs.getInt("nr_mieszkania"), rs.getString("kod_pocztowy"));
+                Pracowniklist.add(pracownik);
+            }
+        }catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return Pracowniklist;
+    }
+
+    public void showPracownik() throws SQLException {
+        ObservableList<Pracownik> list = getPracownikList();
+
+        idPracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,Integer>("id"));
+        imiePracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,String>("imie"));
+        nazwiskoPracowikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,String>("nazwisko"));
+        PESELPracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,String>("PESEL"));
+        stanowiskoPracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,String>("stanowisko"));
+        zarobkiPracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,Integer>("zarobki"));
+        kierownikPracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,Integer>("kierownik"));
+        miastoPracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,String>("miasto"));
+        UlicaPracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,String>("ulica"));
+        domPracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,Integer>("nrDomu"));
+        mieszkaniePracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,Integer>("nrMieszkania"));
+        kodpocztowyPracownikCol.setCellValueFactory(new PropertyValueFactory<Pracownik,String>("kodPocztowy"));
+        tabelaPracownik.setItems(list);
+    }
+
+    @FXML
+    void insertPracownik (ActionEvent event) throws SQLException {
+        String query = "INSERT INTO `adres` (`miasto`, `ulica`, `nr_domu`,`nr_mieszkania`,`kod_pocztowy`) VALUES (" + "'"+txtMiastoPracownik.getText()+"', " + "'" + txtUlicaPracownik.getText() + "', " +"'"+ txtNrDomPracownik.getText() + "'"
+                           + "`" + txtNrMieszkaniaPracownik.getText() +  "`" + "`" + txtKodPocztowyPracownik.getText() +"`" +")" + "INSERT INTO `pracownikinfo` (`imie`, `nazwisko`, `pesel`, `zarobki`, `adres`) VALUES"
+                + "(`" + txtImiePracownik.getText() + "`," + "`" + txtNazwiskoPracownik.getText() + "`," + "`" + txtZarobkiPracownik.getText() + "`, select adres.id form adres order by id desc limit 1,"
+                + "insert into `pracownik` (`stanowisko`, `kierownik`) values (" + "'select stanowisko.id form stanowisko where nazwa = '" + txtStanowiskoPracownik.getText() +"` , '" + txtKierownikPracownika.getText()+"'";
+
+        executeQuery(query);
+        showPracownik();
+    }
+
+    @FXML
+    void updatePracownik (ActionEvent event) throws SQLException {
+        String query = "update narzedzie set typ ='"+txtTypNarzedzia.getText()+"',amortyzacja='"+txtAmortyzacjaNarzedzia.getText()+"', stan='"+txtStanNarzedzia.getText()+"'" +
+                " where id="+txtIDNarzedzia.getText();
+        executeQuery(query);
+        showPracownik();
+    }
+
+    @FXML
+    void deletePracownik (ActionEvent event) throws SQLException {
+        String query = "DELETE FROM pracownik WHERE id='" + txtIDPracownik.getText() + "';";
+        executeQuery(query);
+        showPracownik();
+    }
 
 
+/********************************8
+ *      ZLECENIA          *
+ *                              */
 
+public ObservableList<Zlecenie> getZlecenieList() throws SQLException {
+
+    ObservableList<Zlecenie> Zlecenielist = FXCollections.observableArrayList();
+    Connection conn = getConnection();
+    String query = "SELECT `z`.`id`, `zl`.`nazwa`, `zl`.`telefon`, `z`.`data_zlecenia`, `z`.`data_zakonczenia`, `z`.`kierownik`, `a`.`miasto`, `a`.`ulica`,`a`.`nr_domu`,`a`.`kod_pocztowy`\n" +
+            "    FROM(( `zlecenie` z \n" +
+            "\tJOIN `zleceniodawca` zl ON `zl`.`id` = `z`.`id`) \n" +
+            "\tJOIN `adres` a ON `z`.`adres_budowy` = `a`.`id`);";
+    Statement st;
+    ResultSet rs;
+
+    try{
+        st = conn.createStatement();
+        rs =st.executeQuery(query);
+        Zlecenie zlecenie;
+
+        while(rs.next())
+        {
+            zlecenie = new Zlecenie(rs.getInt("id"), rs.getString("nazwa"), rs.getString("telefon"), rs.getDate("data_zlecenia"), rs.getDate("data_zakonczenia"),
+                    rs.getInt("kierownik"),rs.getString("miasto"),rs.getString("ulica"), rs.getInt("nr_domu"),rs.getString("kod_pocztowy"));
+            Zlecenielist.add(zlecenie);
+        }
+    }catch(Exception ex)
+    {
+        ex.printStackTrace();
+    }
+
+    return Zlecenielist;
+}
+
+    public void showZlecenie() throws SQLException {
+        ObservableList<Zlecenie> list = getZlecenieList();
+
+        idZleceniaCol.setCellValueFactory(new PropertyValueFactory<Zlecenie,Integer>("id"));
+        nazwaZleceniaCol.setCellValueFactory(new PropertyValueFactory<Zlecenie,String>("nazwaZlecenia"));
+        telZlecenieCol.setCellValueFactory(new PropertyValueFactory<Zlecenie,String>("telZlecenia"));
+        rozpoczecieZleceniaCol.setCellValueFactory(new PropertyValueFactory<Zlecenie,Date>("poczatekZlecenia"));
+        zakonczenieZleceniaCol.setCellValueFactory(new PropertyValueFactory<Zlecenie,Date>("koniecZlecenia"));
+        kierownikZleceniaCol.setCellValueFactory(new PropertyValueFactory<Zlecenie,Integer>("kierownik"));
+        miastoZleceniaCol.setCellValueFactory(new PropertyValueFactory<Zlecenie,String>("miasto"));
+        ulicaZeceniaCol.setCellValueFactory(new PropertyValueFactory<Zlecenie,String>("ulica"));
+        domZleceniaCol.setCellValueFactory(new PropertyValueFactory<Zlecenie,Integer>("nrDomu"));
+        kodpocztowyZleceniaCol.setCellValueFactory(new PropertyValueFactory<Zlecenie,String>("kodPocztowy"));
+
+        tablelaZlecen.setItems(list);
+    }
+
+    @FXML
+    void insertZlecenie (ActionEvent event) throws SQLException {
+        String query = "INSERT INTO `narzedzie` (`typ`, `amortyzacja`, `stan`) VALUES (" + "'"+txtTypNarzedzia.getText()+"', " + "'" + txtAmortyzacjaNarzedzia.getText() + "', " +"'"+ txtStanNarzedzia.getText() + "'" + ");";
+        executeQuery(query);
+        showNarzedzie();
+    }
+
+    @FXML
+    void updateZlecenie (ActionEvent event) throws SQLException {
+        String query = "update narzedzie set typ ='"+txtTypNarzedzia.getText()+"',amortyzacja='"+txtAmortyzacjaNarzedzia.getText()+"', stan='"+txtStanNarzedzia.getText()+"'" +
+                " where id="+txtIDNarzedzia.getText();
+        executeQuery(query);
+        showNarzedzie();
+    }
+
+    @FXML
+    void deleteZlecenie (ActionEvent event) throws SQLException {
+        String query = "DELETE FROM narzedzie WHERE id='" + txtIDNarzedzia.getText() + "';";
+        executeQuery(query);
+        showNarzedzie();
+    }
+
+
+    public void WypozyczNarzedzie(ActionEvent event) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../sample/resources/Wypozycz.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = (Stage) wypozyczNarzedzieButton.getScene().getWindow();
+        stage.setScene(new Scene(root1));
+        stage.show();
+
+    }
 }

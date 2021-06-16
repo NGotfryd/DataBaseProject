@@ -49,7 +49,7 @@
                         <Button fx:id="insertNArzedzieButton" layoutX="89.0" layoutY="232.0" mnemonicParsing="false" onAction="#insertNarzedzie" prefHeight="25.0" prefWidth="82.0" text="Insert" />
                         <Button fx:id="updateNarzedzieButton" layoutX="171.0" layoutY="232.0" mnemonicParsing="false" onAction="#updateNarzedzie" prefHeight="25.0" prefWidth="83.0" text="Update" />
                         <Button fx:id="deleteNarzedzieButton" layoutX="254.0" layoutY="232.0" mnemonicParsing="false" onAction="#deleteNarzedzie" prefHeight="25.0" prefWidth="82.0" text="Delete" />
-                        <Button fx:id="refreshNarzedzieButton" layoutX="89.0" layoutY="269.0" mnemonicParsing="false" onAction="#refreshNarzedzie" prefHeight="25.0" prefWidth="247.0" text="Refresh" />
+                        <Button fx:id="WypożyczNarzedzieButton" layoutX="89.0" layoutY="269.0" mnemonicParsing="false" onAction="#WypozyczNarzedzie" prefHeight="25.0" prefWidth="247.0" text="Wypozycz/Zwrot" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>
@@ -61,16 +61,20 @@
                <children>
                   <AnchorPane layoutY="9.0" prefHeight="549.0" prefWidth="1302.0">
                      <children>
-                        <TableView layoutX="358.0" layoutY="28.0" prefHeight="532.0" prefWidth="945.0">
+                        <TableView fx:id="tabelaPracownik" layoutX="342.0" layoutY="14.0" prefHeight="540.0" prefWidth="976.0">
                            <columns>
-                              <TableColumn prefWidth="63.0" text="ID " />
-                              <TableColumn prefWidth="119.0" text="Imię" />
-                              <TableColumn prefWidth="136.0" text="Nazwisko" />
-                              <TableColumn prefWidth="123.0" text="PESEL" />
-                              <TableColumn prefWidth="107.0" text="Stanowisko" />
-                              <TableColumn prefWidth="92.0" text="Zarobki" />
-                              <TableColumn prefWidth="74.0" text="Kierownik" />
-                              <TableColumn prefWidth="211.0" text="Adres" />
+                              <TableColumn fx:id="idPracownikCol" prefWidth="63.0" text="ID " />
+                              <TableColumn fx:id="imiePracownikCol" prefWidth="119.0" text="Imię" />
+                              <TableColumn fx:id="nazwiskoPracowikCol" prefWidth="103.0" text="Nazwisko" />
+                              <TableColumn fx:id="PESELPracownikCol" prefWidth="62.0" text="PESEL" />
+                              <TableColumn fx:id="stanowiskoPracownikCol" prefWidth="71.0" text="Stanowisko" />
+                              <TableColumn fx:id="zarobkiPracownikCol" prefWidth="58.0" text="Zarobki" />
+                              <TableColumn fx:id="kierownikPracownikCol" prefWidth="77.0" text="Kierownik" />
+                              <TableColumn fx:id="miastoPracownikCol" prefWidth="61.0" text="Miasto" />
+                              <TableColumn fx:id="UlicaPracownikCol" prefWidth="48.0" text="Ulica" />
+                              <TableColumn fx:id="domPracownikCol" prefWidth="62.0" text="nr Domu" />
+                              <TableColumn fx:id="mieszkaniePracownikCol" prefWidth="105.0" text="nr Mieszkania" />
+                              <TableColumn fx:id="kodpocztowyPracownikCol" prefWidth="176.0" text="kod pocztowy" />
                            </columns>
                         </TableView>
                         <VBox layoutX="14.0" layoutY="31.0" prefHeight="405.0" prefWidth="75.0" spacing="20.0">
@@ -105,10 +109,9 @@
                               <TextField fx:id="txtKodPocztowyPracownik" />
                            </children>
                         </VBox>
-                        <Button fx:id="insertPracownikButton" layoutX="86.0" layoutY="484.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Insert" />
-                        <Button fx:id="updatePracownikButton" layoutX="168.0" layoutY="484.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Update" />
-                        <Button fx:id="deletetPracownikButton" layoutX="251.0" layoutY="484.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Delete" />
-                        <Button fx:id="refreshPracownikButton" layoutX="86.0" layoutY="515.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="247.0" text="Refresh" />
+                        <Button fx:id="insertPracownikButton" layoutX="86.0" layoutY="484.0" mnemonicParsing="false" onAction="#insertPracownik" prefHeight="25.0" prefWidth="82.0" text="Insert" />
+                        <Button fx:id="updatePracownikButton" layoutX="168.0" layoutY="484.0" mnemonicParsing="false" onAction="#updatePracownik" prefHeight="25.0" prefWidth="83.0" text="Update" />
+                        <Button fx:id="deletetPracownikButton" layoutX="251.0" layoutY="484.0" mnemonicParsing="false" onAction="#deletePracownik" prefHeight="25.0" prefWidth="82.0" text="Delete" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>
@@ -144,19 +147,21 @@
                               <TextField fx:id="txtNrDomZlecenia" />
                            </children>
                         </VBox>
-                        <Button fx:id="insertZlecenieButton" layoutX="87.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Insert" />
-                        <Button fx:id="updateZlecenieButton" layoutX="167.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Update" />
-                        <Button fx:id="deleteZlecenieButton" layoutX="246.0" layoutY="452.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Delete" />
-                        <Button fx:id="refreshZlecenieButton" layoutX="85.0" layoutY="486.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="247.0" text="Refresh" />
-                        <TableView layoutX="346.0" layoutY="29.0" prefHeight="532.0" prefWidth="945.0">
+                        <Button fx:id="insertZlecenieButton" layoutX="87.0" layoutY="452.0" mnemonicParsing="false" onAction="#insertZlecenie" prefHeight="25.0" prefWidth="82.0" text="Insert" />
+                        <Button fx:id="updateZlecenieButton" layoutX="167.0" layoutY="452.0" mnemonicParsing="false" onAction="#updateZlecenie" prefHeight="25.0" prefWidth="83.0" text="Update" />
+                        <Button fx:id="deleteZlecenieButton" layoutX="246.0" layoutY="452.0" mnemonicParsing="false" onAction="#deleteZlecenie" prefHeight="25.0" prefWidth="82.0" text="Delete" />
+                        <TableView fx:id="tablelaZlecen" layoutX="346.0" layoutY="29.0" prefHeight="532.0" prefWidth="945.0">
                            <columns>
-                              <TableColumn prefWidth="63.0" text="ID " />
-                              <TableColumn prefWidth="113.0" text="Nazwa Zlec." />
-                              <TableColumn prefWidth="142.0" text="Tel. Zlec." />
-                              <TableColumn prefWidth="114.0" text="Data rozpoczęcia" />
-                              <TableColumn prefWidth="124.0" text="Data zakonczenia" />
-                              <TableColumn prefWidth="98.0" text="ID kierownika" />
-                              <TableColumn prefWidth="297.0" text="Adres" />
+                              <TableColumn fx:id="idZleceniaCol" prefWidth="63.0" text="ID " />
+                              <TableColumn fx:id="nazwaZleceniaCol" prefWidth="126.0" text="Nazwa Zlec." />
+                              <TableColumn fx:id="telZlecenieCol" prefWidth="151.0" text="Tel. Zlec." />
+                              <TableColumn fx:id="rozpoczecieZleceniaCol" prefWidth="91.0" text="Data rozpoczęcia" />
+                              <TableColumn fx:id="zakonczenieZleceniaCol" prefWidth="70.0" text="Data zakonczenia" />
+                              <TableColumn fx:id="kierownikZleceniaCol" prefWidth="71.0" text="ID kierownika" />
+                              <TableColumn fx:id="miastoZleceniaCol" prefWidth="96.0" text="Miasto" />
+                              <TableColumn fx:id="ulicaZeceniaCol" prefWidth="113.0" text="Ulica" />
+                              <TableColumn fx:id="domZleceniaCol" prefWidth="72.0" text="nr Domu" />
+                              <TableColumn fx:id="kodpocztowyZleceniaCol" prefWidth="85.0" text="Kod pocztowy" />
                            </columns>
                         </TableView>
                      </children>
